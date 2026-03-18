@@ -1,0 +1,128 @@
+.terminal-window {
+  background: var(--void-black);
+  border: 2px solid var(--chrome);
+  box-shadow: 8px 8px 0 0 var(--chrome);
+  overflow: hidden;
+}
+
+.terminal-header {
+  background: var(--terminal);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--chrome);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-dot--red {
+  background: #FF5F56;
+}
+
+.terminal-dot--yellow {
+  background: #FFBD2E;
+}
+
+.terminal-dot--green {
+  background: #27CA40;
+}
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--faded);
+}
+
+.terminal-body {
+  padding: var(--space-lg);
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--neon-green);
+  min-height: 100px;
+}
+
+.terminal-body.with-lines {
+  padding-left: 0;
+}
+
+/* Code line styles */
+.code-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.code-line__number {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--faded);
+  min-width: 24px;
+  text-align: right;
+  user-select: none;
+  opacity: 0.5;
+}
+
+.code-line__content {
+  white-space: pre;
+}
+
+/* Syntax highlighting classes */
+.code-line--keyword {
+  color: var(--hot-magenta);
+}
+
+.code-line--string {
+  color: var(--electric-yellow);
+}
+
+.code-line--function {
+  color: var(--neo-cyan);
+}
+
+.code-line--comment {
+  color: var(--faded);
+  font-style: italic;
+}
+
+.code-line--number {
+  color: var(--neon-green);
+}
+
+.code-line--operator {
+  color: var(--ghost-white);
+}
+
+/* Prompt style */
+.code-line--prompt::before {
+  content: '>';
+  color: var(--neo-cyan);
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+/* Cursor blink */
+.terminal-cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2em;
+  background: var(--neo-cyan);
+  animation: blink-caret 0.75s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+@keyframes blink-caret {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}

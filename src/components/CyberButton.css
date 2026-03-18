@@ -1,0 +1,150 @@
+.cyber-btn {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: 3px solid var(--neo-cyan);
+  background: transparent;
+  color: var(--neo-cyan);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-cyber);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.cyber-btn__icon {
+  display: flex;
+  align-items: center;
+}
+
+.cyber-btn__text {
+  display: inline-block;
+}
+
+/* Hover effect */
+.cyber-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.3), transparent);
+  transition: left 0.4s ease;
+}
+
+.cyber-btn:hover::before {
+  left: 100%;
+}
+
+.cyber-btn:hover {
+  background: var(--neo-cyan);
+  color: var(--void-black);
+  box-shadow: var(--glow-cyan), 6px 6px 0 0 var(--neo-cyan);
+  transform: translate(-2px, -2px);
+}
+
+.cyber-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+/* Focus state */
+.cyber-btn:focus-visible {
+  outline: 3px solid var(--electric-yellow);
+  outline-offset: 3px;
+}
+
+/* Sizes */
+.cyber-btn--small {
+  font-size: 0.7rem;
+  padding: 8px 16px;
+}
+
+.cyber-btn--medium {
+  font-size: 0.85rem;
+  padding: 14px 28px;
+}
+
+.cyber-btn--large {
+  font-size: 1rem;
+  padding: 18px 36px;
+}
+
+/* Variants */
+.cyber-btn--cyan {
+  border-color: var(--neo-cyan);
+  color: var(--neo-cyan);
+  box-shadow: var(--shadow-cyber);
+}
+
+.cyber-btn--cyan:hover {
+  background: var(--neo-cyan);
+  box-shadow: var(--glow-cyan), 6px 6px 0 0 var(--neo-cyan);
+}
+
+.cyber-btn--magenta {
+  border-color: var(--hot-magenta);
+  color: var(--hot-magenta);
+  box-shadow: var(--shadow-hot);
+}
+
+.cyber-btn--magenta::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 42, 109, 0.3), transparent);
+}
+
+.cyber-btn--magenta:hover {
+  background: var(--hot-magenta);
+  box-shadow: var(--glow-magenta), 6px 6px 0 0 var(--hot-magenta);
+}
+
+.cyber-btn--yellow {
+  border-color: var(--electric-yellow);
+  color: var(--electric-yellow);
+  box-shadow: var(--shadow-yellow);
+}
+
+.cyber-btn--yellow::before {
+  background: linear-gradient(90deg, transparent, rgba(252, 238, 10, 0.3), transparent);
+}
+
+.cyber-btn--yellow:hover {
+  background: var(--electric-yellow);
+  box-shadow: var(--glow-yellow), 6px 6px 0 0 var(--electric-yellow);
+}
+
+.cyber-btn--green {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 4px 4px 0 0 var(--neon-green);
+}
+
+.cyber-btn--green::before {
+  background: linear-gradient(90deg, transparent, rgba(5, 255, 161, 0.3), transparent);
+}
+
+.cyber-btn--green:hover {
+  background: var(--neon-green);
+  box-shadow: var(--glow-green), 6px 6px 0 0 var(--neon-green);
+}
+
+/* Disabled */
+.cyber-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.cyber-btn:disabled:hover {
+  background: transparent;
+  color: inherit;
+  transform: none;
+}
+
+.cyber-btn:disabled::before {
+  display: none;
+}

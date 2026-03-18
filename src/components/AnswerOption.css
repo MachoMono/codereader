@@ -1,0 +1,92 @@
+.answer-option {
+  width: 100%;
+  padding: var(--space-lg);
+  background: var(--cyber-dark);
+  border: 3px solid var(--chrome);
+  box-shadow: 4px 4px 0 0 var(--chrome);
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+  color: var(--ghost-white);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.answer-option__letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--neo-cyan);
+  min-width: 40px;
+}
+
+.answer-option__text {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.answer-option:hover:not(:disabled) {
+  border-color: var(--neo-cyan);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--neo-cyan), var(--glow-cyan);
+}
+
+.answer-option:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+.answer-option:focus-visible {
+  outline: 3px solid var(--electric-yellow);
+  outline-offset: 3px;
+}
+
+.answer-option:disabled {
+  cursor: default;
+}
+
+/* Selected state */
+.answer-option--selected {
+  border-color: var(--neo-cyan);
+  background: rgba(0, 245, 255, 0.1);
+}
+
+/* Correct state */
+.answer-option--correct {
+  border-color: var(--neon-green) !important;
+  background: rgba(5, 255, 161, 0.15) !important;
+  box-shadow: 6px 6px 0 0 var(--neon-green) !important;
+  animation: correct-pulse 0.4s ease;
+}
+
+.answer-option--correct .answer-option__letter {
+  color: var(--neon-green);
+}
+
+@keyframes correct-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* Wrong state */
+.answer-option--wrong {
+  border-color: var(--hot-magenta) !important;
+  background: rgba(255, 42, 109, 0.15) !important;
+  box-shadow: 6px 6px 0 0 var(--hot-magenta) !important;
+  animation: shake 0.4s ease;
+}
+
+.answer-option--wrong .answer-option__letter {
+  color: var(--hot-magenta);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+}

@@ -3,10 +3,8 @@ import './ProgressBar.css';
 export default function ProgressBar({ 
   current, 
   total, 
-  variant = 'primary',
   showLabel = true,
-  label = '',
-  showPercentage = true
+  label = ''
 }) {
   const percentage = total > 0 ? Math.round((current / total) * 100) : 0;
   
@@ -14,18 +12,12 @@ export default function ProgressBar({
     <div className="progress-container">
       {showLabel && (
         <div className="progress-label">
-          <span className="progress-label__text">{label || `Question ${current} of ${total}`}</span>
-          {showPercentage && (
-            <span className="progress-label__percent">{percentage}%</span>
-          )}
+          <span className="progress-label__text">{label || `PROGRESS: ${current}/${total}`}</span>
+          <span className="progress-label__percent">{percentage}%</span>
         </div>
       )}
-      <div className={`progress-bar progress-bar--${variant}`}>
-        <div 
-          className="progress-bar__fill"
-          style={{ width: `${percentage}%` }}
-        />
-        <div className="progress-bar__segments">
+      <div className="progress-bar">
+        <div className="progress-bar__track">
           {Array.from({ length: total }, (_, i) => (
             <div 
               key={i} 

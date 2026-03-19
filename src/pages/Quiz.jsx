@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, Check, X, ArrowRight, RotateCcw, Home } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import CyberButton from '../components/CyberButton';
 import TerminalWindow, { CodeLine } from '../components/TerminalWindow';
 import AnswerOption from '../components/AnswerOption';
@@ -59,51 +59,35 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
   if (questions.length === 0) {
     return (
       <div className="quiz quiz--empty">
-        <div className="empty-state">
-          <h2>No questions available</h2>
-          <CyberButton onClick={onBack}>Return Home</CyberButton>
-        </div>
+        <p className="quiz__error">NO_DATA_FOUND</p>
+        <CyberButton onClick={onBack}>RETURN_BASE</CyberButton>
       </div>
     );
   }
 
   if (quizComplete) {
-    const answeredCorrectly = questions.filter((_, i) => {
-      return true;
-    }).length;
-    
     return (
       <div className="quiz quiz--complete">
-        <div className="complete-screen">
-          <div className="complete-screen__icon">
-            <Check size={48} />
-          </div>
-          <h1 className="complete-screen__title">
-            <span className="gradient-text">Quiz Complete</span>
-          </h1>
-          <p className="complete-screen__subtitle">
-            You have mastered this challenge
-          </p>
-          
-          <div className="complete-screen__stats">
-            <div className="complete-stat">
-              <span className="complete-stat__value">{questions.length}</span>
-              <span className="complete-stat__label">Questions</span>
-            </div>
-            <div className="complete-stat">
-              <span className="complete-stat__value gradient-text">100%</span>
-              <span className="complete-stat__label">Complete</span>
-            </div>
-          </div>
-          
-          <div className="complete-screen__actions">
-            <CyberButton variant="secondary" icon="rotate" onClick={handleRestart}>
-              Try Again
-            </CyberButton>
-            <CyberButton variant="primary" icon="home" onClick={onBack}>
-              Back Home
-            </CyberButton>
-          </div>
+        <pre className="complete-ascii">
+{`
+  ███████╗ ██████╗ ███╗   ██╗ ██████╗ 
+  ██╔════╝██╔═══██╗████╗  ██║██╔═══██╗
+  █████╗  ██║   ██║██╔██╗ ██║██║   ██║
+  ██╔══╝  ██║   ██║██║╚██╗██║██║   ██║
+  ██║     ╚██████╔╝██║ ╚████║╚██████╔╝
+  ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝ 
+`}
+        </pre>
+        <p className="complete-label">SEQUENCE_COMPLETE</p>
+        <div className="complete-stats">
+          <span className="stat-item">
+            <span className="stat-label">QUESTIONS:</span>
+            <span className="stat-value">{questions.length}</span>
+          </span>
+        </div>
+        <div className="complete-actions">
+          <CyberButton variant="secondary" onClick={handleRestart}>RETRY_SEQUENCE</CyberButton>
+          <CyberButton onClick={onBack}>RETURN_BASE</CyberButton>
         </div>
       </div>
     );
@@ -114,25 +98,18 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
       {/* Header */}
       <header className="quiz__header">
         <button className="quiz__back" onClick={onBack}>
-          <ChevronLeft size={20} />
-          <span>Exit</span>
+          <ChevronLeft size={16} />
+          <span>EXIT</span>
         </button>
         
         <div className="quiz__info">
-          <span className="quiz__language">{language.name}</span>
-          <span className="quiz__difficulty">{language.difficulty[difficultyId].name}</span>
+          <span className="quiz__language">{language?.name.toUpperCase()}</span>
+          <span className="quiz__separator">//</span>
+          <span className="quiz__difficulty">{language?.difficulty[difficultyId]?.name.toUpperCase()}</span>
         </div>
         
-        <div className="quiz__progress">
-          <ProgressBar 
-            current={currentIndex + 1} 
-            total={totalInQuiz}
-            variant="primary"
-            showLabel={false}
-          />
-          <span className="quiz__counter">
-            {currentIndex + 1} / {totalInQuiz}
-          </span>
+        <div className="quiz__counter">
+          {String(currentIndex + 1).padStart(2, '0')}/{totalInQuiz}
         </div>
       </header>
 
@@ -140,13 +117,12 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
       <main className="quiz__main">
         {/* Question */}
         <div className="quiz__question">
-          <h2 className="quiz__question-text">
-            {currentQuestion.question}
-          </h2>
+          <span className="question-prefix">&gt;_</span>
+          <h2 className="quiz__question-text">{currentQuestion.question}</h2>
         </div>
 
         {/* Code Block */}
-        <TerminalWindow title={`${languageId}_quiz_${currentIndex + 1}`}>
+        <TerminalWindow title={`${languageId}_q${String(currentIndex + 1).padStart(2, '0')}`}>
           {currentQuestion.code.map((line, idx) => (
             <CodeLine 
               key={idx} 
@@ -177,33 +153,30 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
         {/* Feedback */}
         {showFeedback && (
           <div className={`quiz__feedback ${selectedAnswer === currentQuestion.correct ? 'quiz__feedback--correct' : 'quiz__feedback--wrong'}`}>
-            <div className="feedback__header">
-              {selectedAnswer === currentQuestion.correct ? (
-                <>
-                  <Check size={20} />
-                  <span>Correct</span>
-                </>
-              ) : (
-                <>
-                  <X size={20} />
-                  <span>Incorrect</span>
-                </>
-              )}
+            <div className="feedback-header">
+              {selectedAnswer === currentQuestion.correct ? '[+]' : '[-]'} {selectedAnswer === currentQuestion.correct ? 'CORRECT' : 'INCORRECT'}
             </div>
-            <p className="feedback__explanation">
-              {currentQuestion.explanation}
-            </p>
+            <p className="feedback-explanation">{currentQuestion.explanation}</p>
             <CyberButton 
               variant={selectedAnswer === currentQuestion.correct ? 'success' : 'primary'}
-              size="medium"
+              size="small"
               icon="arrow"
               onClick={handleNext}
             >
-              {currentIndex + 1 >= questions.length ? 'Finish Quiz' : 'Next Question'}
+              {currentIndex + 1 >= questions.length ? 'COMPLETE' : 'NEXT'}
             </CyberButton>
           </div>
         )}
       </main>
+
+      {/* Progress */}
+      <footer className="quiz__footer">
+        <ProgressBar 
+          current={currentIndex + 1} 
+          total={totalInQuiz}
+          label={`LOADING: ${currentIndex + 1}/${totalInQuiz}`}
+        />
+      </footer>
     </div>
   );
 }

@@ -1,34 +1,23 @@
-import { Terminal, Type, ChevronRight, Play, Check, X, ArrowRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import './CyberButton.css';
 
 export default function CyberButton({ 
   children, 
   variant = 'primary', 
   size = 'medium',
-  icon = null,
+  icon,
   onClick,
   disabled = false,
-  loading = false,
   className = ''
 }) {
-  const getIcon = () => {
-    if (loading) return <span className="cyber-btn__spinner" />;
-    if (icon === 'terminal') return <Terminal size={18} />;
-    if (icon === 'type') return <Type size={18} />;
-    if (icon === 'arrow' || icon === 'play') return <ArrowRight size={18} />;
-    if (icon === 'check') return <Check size={18} />;
-    if (icon === 'x') return <X size={18} />;
-    return null;
-  };
-
   return (
     <button 
-      className={`cyber-btn cyber-btn--${variant} cyber-btn--${size} ${loading ? 'cyber-btn--loading' : ''} ${className}`}
+      className={`cyber-btn cyber-btn--${variant} cyber-btn--${size} ${className}`}
       onClick={onClick}
-      disabled={disabled || loading}
+      disabled={disabled}
     >
-      {getIcon() && <span className="cyber-btn__icon">{getIcon()}</span>}
       <span className="cyber-btn__text">{children}</span>
+      {icon === 'arrow' && <ChevronRight size={16} className="cyber-btn__arrow" />}
     </button>
   );
 }

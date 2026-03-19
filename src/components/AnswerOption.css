@@ -5,9 +5,9 @@
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
   background: transparent;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-default);
   border-bottom: none;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 0.9rem;
   color: var(--text-primary);
   text-align: left;
@@ -20,11 +20,11 @@
 }
 
 .answer-option:last-child {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .answer-option__letter {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-weight: bold;
   font-size: 0.85rem;
   min-width: 28px;
@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-subtle);
   color: var(--text-muted);
   transition: all 200ms ease;
   flex-shrink: 0;
@@ -40,13 +40,13 @@
 
 .answer-option:hover:not(:disabled) {
   background: var(--text-primary);
-  color: var(--bg-void);
+  color: var(--bg-base);
 }
 
 .answer-option:hover:not(:disabled) .answer-option__letter {
-  color: var(--bg-void);
-  background: var(--accent-magenta);
-  border-color: var(--accent-magenta);
+  color: var(--bg-base);
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
 }
 
 .answer-option:focus-visible {
@@ -57,26 +57,26 @@
 /* Selected */
 .answer-option--selected {
   border-color: var(--accent-magenta);
-  background: rgba(255, 0, 255, 0.1);
+  background: rgba(255, 0, 110, 0.1);
 }
 
 .answer-option--selected .answer-option__letter {
-  color: var(--bg-void);
+  color: var(--bg-base);
   background: var(--accent-magenta);
   border-color: var(--accent-magenta);
 }
 
 /* Correct */
 .answer-option--correct {
-  border-color: var(--success) !important;
-  background: rgba(0, 255, 102, 0.1) !important;
+  border-color: var(--color-success) !important;
+  background: rgba(0, 255, 136, 0.1) !important;
   animation: correct-flash 0.3s ease;
 }
 
 .answer-option--correct .answer-option__letter {
-  color: var(--bg-void) !important;
-  background: var(--success) !important;
-  border-color: var(--success) !important;
+  color: var(--bg-base) !important;
+  background: var(--color-success) !important;
+  border-color: var(--color-success) !important;
 }
 
 @keyframes correct-flash {
@@ -86,34 +86,19 @@
 
 /* Wrong */
 .answer-option--wrong {
-  border-color: var(--error) !important;
-  background: rgba(255, 0, 51, 0.1) !important;
+  border-color: var(--color-error) !important;
+  background: rgba(255, 71, 87, 0.1) !important;
   animation: shake 0.3s ease;
 }
 
 .answer-option--wrong .answer-option__letter {
-  color: var(--bg-void) !important;
-  background: var(--error) !important;
-  border-color: var(--error) !important;
+  color: var(--bg-base) !important;
+  background: var(--color-error) !important;
+  border-color: var(--color-error) !important;
 }
 
 .answer-option:disabled {
   cursor: default;
-}
-
-.answer-option__letter {
-  font-family: var(--font-mono);
-  font-weight: bold;
-  font-size: 0.85rem;
-  min-width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border-light);
-  color: var(--text-muted);
-  transition: all 0.1s ease;
-  flex-shrink: 0;
 }
 
 .answer-option__text {

@@ -1,6 +1,6 @@
 .cyber-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   padding: var(--space-lg);
   position: relative;
   transition: all 200ms ease;
@@ -29,7 +29,7 @@
 /* Selected card */
 .cyber-card--selected {
   border-color: var(--accent-magenta);
-  box-shadow: var(--glow-magenta), inset 0 0 30px rgba(255, 0, 255, 0.05);
+  box-shadow: var(--glow-magenta), inset 0 0 30px rgba(255, 0, 110, 0.05);
 }
 
 .cyber-card--selected .card-title {
@@ -39,9 +39,9 @@
 
 /* Card title */
 .card-title {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 1.1rem;
-  color: var(--text-active);
+  color: var(--text-primary);
   margin-bottom: var(--space-md);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -63,7 +63,7 @@
 .card-code {
   font-family: var(--font-code);
   font-size: 0.85rem;
-  color: var(--success);
+  color: var(--color-success);
   background: var(--bg-terminal);
   padding: var(--space-sm) var(--space-md);
   border-left: 2px solid var(--accent-magenta);

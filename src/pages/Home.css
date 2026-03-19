@@ -12,7 +12,7 @@
 }
 
 .home__logo {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: clamp(0.35rem, 1.2vw, 0.65rem);
   color: var(--accent-magenta);
   text-shadow: var(--glow-magenta);
@@ -23,7 +23,7 @@
 }
 
 .home__tagline {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 1rem;
   color: var(--text-primary);
   margin-top: var(--space-lg);
@@ -32,7 +32,7 @@
 }
 
 .home__prompt {
-  color: var(--success);
+  color: var(--color-success);
   animation: blink 1s step-end infinite;
 }
 
@@ -52,20 +52,20 @@
   gap: var(--space-sm);
   margin-bottom: var(--space-lg);
   padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .section-prefix {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 0.9rem;
   color: var(--text-muted);
 }
 
 .section-title {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 0.9rem;
   font-weight: normal;
-  color: var(--text-active);
+  color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -86,9 +86,9 @@
 .language-card:nth-child(3) { animation-delay: 0.3s; }
 
 .card-code {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 1rem;
-  color: var(--text-active);
+  color: var(--text-primary);
   margin-bottom: var(--space-md);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -102,7 +102,7 @@
 .card-preview {
   font-family: var(--font-code);
   font-size: 0.85rem;
-  color: var(--success);
+  color: var(--color-success);
   background: var(--bg-terminal);
   padding: var(--space-sm) var(--space-md);
   border-left: 2px solid var(--accent-magenta);
@@ -126,8 +126,8 @@
   align-items: flex-start;
   gap: var(--space-md);
   padding: var(--space-lg);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   cursor: pointer;
   transition: all 200ms ease;
   text-align: left;
@@ -135,7 +135,7 @@
 }
 
 .difficulty-card:hover {
-  border-color: var(--accent-magenta);
+  border-color: var(--accent-cyan);
   background: var(--bg-terminal);
 }
 
@@ -146,14 +146,14 @@
 
 .difficulty-card--selected {
   border-color: var(--accent-magenta);
-  box-shadow: var(--glow-magenta), inset 0 0 20px rgba(255, 0, 255, 0.05);
+  box-shadow: var(--glow-magenta), inset 0 0 20px rgba(255, 0, 110, 0.05);
 }
 
 .difficulty-prefix {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 1.2rem;
-  color: var(--accent-magenta);
-  text-shadow: var(--glow-magenta);
+  color: var(--accent-cyan);
+  text-shadow: var(--glow-cyan);
   flex-shrink: 0;
 }
 
@@ -165,9 +165,9 @@
 }
 
 .difficulty-name {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 0.9rem;
-  color: var(--text-active);
+  color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -198,7 +198,7 @@
 .stat-item {
   display: flex;
   gap: var(--space-sm);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 0.85rem;
 }
 
@@ -207,12 +207,12 @@
 }
 
 .stat-value {
-  color: var(--text-active);
+  color: var(--text-primary);
 }
 
 .stat-value--accent {
-  color: var(--accent-magenta);
-  text-shadow: var(--glow-magenta);
+  color: var(--accent-cyan);
+  text-shadow: var(--glow-cyan);
 }
 
 /* Action */

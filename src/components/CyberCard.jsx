@@ -1,32 +1,40 @@
-import { Code } from 'lucide-react';
+import { Code, Zap, Trophy, BookOpen } from 'lucide-react';
 import './CyberCard.css';
+
+const iconMap = {
+  code: Code,
+  zap: Zap,
+  trophy: Trophy,
+  book: BookOpen,
+};
 
 export default function CyberCard({ 
   children, 
   variant = 'default',
-  glowColor = 'cyan',
+  color = 'primary',
   header,
   icon,
   onClick,
+  selected = false,
   className = ''
 }) {
-  const IconComponent = icon === 'code' ? Code : null;
+  const IconComponent = icon ? iconMap[icon] : null;
 
   return (
     <div 
-      className={`cyber-card cyber-card--${variant} cyber-card--glow-${glowColor} ${onClick ? 'cyber-card--clickable' : ''} ${className}`}
+      className={`cyber-card cyber-card--${variant} cyber-card--${color} ${selected ? 'cyber-card--selected' : ''} ${onClick ? 'cyber-card--clickable' : ''} ${className}`}
       onClick={onClick}
     >
-      <div className="cyber-card__accent"></div>
       {header && (
         <div className="cyber-card__header">
-          {IconComponent && <IconComponent size={14} />}
+          {IconComponent && <IconComponent size={16} />}
           <span>{header}</span>
         </div>
       )}
       <div className="cyber-card__body">
         {children}
       </div>
+      <div className="cyber-card__glow" />
     </div>
   );
 }

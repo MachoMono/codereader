@@ -1,8 +1,7 @@
 export const languages = {
   python: {
     name: 'Python',
-    icon: 'code',
-    color: 'cyan',
+    color: 'primary',
     difficulty: {
       beginner: {
         name: 'Beginner',
@@ -195,7 +194,7 @@ export const languages = {
             code: [
               { number: 1, content: 'def func(x, lst=[]):', type: 'function' },
               { number: 2, content: '    lst.append(x)', type: 'default' },
-              { number: 3, content: '    return lst', type: 'default' },
+              { number: 3, content: '    return lst', type: 'keyword' },
               { number: 4, content: 'print(func(1))', type: 'function' },
               { number: 5, content: 'print(func(2))', type: 'function' }
             ],
@@ -214,8 +213,7 @@ export const languages = {
   },
   javascript: {
     name: 'JavaScript',
-    icon: 'code',
-    color: 'yellow',
+    color: 'secondary',
     difficulty: {
       beginner: {
         name: 'Beginner',
@@ -224,7 +222,7 @@ export const languages = {
             id: 'js-b-1',
             question: 'What does this code output?',
             code: [
-              { number: 1, content: 'let x = 5;', type: 'default' },
+              { number: 1, content: 'let x = 5;', type: 'keyword' },
               { number: 2, content: 'console.log(x);', type: 'function' }
             ],
             options: [
@@ -270,7 +268,7 @@ export const languages = {
             id: 'js-b-4',
             question: 'What is logged by this code?',
             code: [
-              { number: 1, content: 'let arr = [1, 2, 3];', type: 'default' },
+              { number: 1, content: 'let arr = [1, 2, 3];', type: 'keyword' },
               { number: 2, content: 'console.log(arr.length);', type: 'function' }
             ],
             options: [
@@ -301,7 +299,7 @@ export const languages = {
             id: 'js-b-6',
             question: 'What does this code output?',
             code: [
-              { number: 1, content: 'let x = [1, 2, 3];', type: 'default' },
+              { number: 1, content: 'let x = [1, 2, 3];', type: 'keyword' },
               { number: 2, content: 'console.log(x[0]);', type: 'function' }
             ],
             options: [
@@ -330,9 +328,9 @@ export const languages = {
           },
           {
             id: 'js-b-8',
-            question: 'What does this output?',
+            question: 'What is the output?',
             code: [
-              { number: 1, content: 'let obj = { a: 1, b: 2 };', type: 'default' },
+              { number: 1, content: 'let obj = { a: 1, b: 2 };', type: 'keyword' },
               { number: 2, content: 'console.log(Object.keys(obj).length);', type: 'function' }
             ],
             options: [
@@ -346,7 +344,7 @@ export const languages = {
           },
           {
             id: 'js-b-9',
-            question: 'What is the output?',
+            question: 'What is logged?',
             code: [
               { number: 1, content: 'console.log(null == undefined);', type: 'function' }
             ],
@@ -363,7 +361,7 @@ export const languages = {
             id: 'js-b-10',
             question: 'What is logged?',
             code: [
-              { number: 1, content: 'let x = 5;', type: 'default' },
+              { number: 1, content: 'let x = 5;', type: 'keyword' },
               { number: 2, content: 'x = x + "5";', type: 'default' },
               { number: 3, content: 'console.log(x);', type: 'function' }
             ],
@@ -385,7 +383,7 @@ export const languages = {
             id: 'js-i-1',
             question: 'What is the output?',
             code: [
-              { number: 1, content: 'const arr = [1, 2, 3];', type: 'default' },
+              { number: 1, content: 'const arr = [1, 2, 3];', type: 'keyword' },
               { number: 2, content: 'arr.push(4);', type: 'function' },
               { number: 3, content: 'console.log(arr);', type: 'function' }
             ],
@@ -419,8 +417,7 @@ export const languages = {
   },
   react: {
     name: 'React',
-    icon: 'code',
-    color: 'cyan',
+    color: 'accent',
     difficulty: {
       beginner: {
         name: 'Beginner',

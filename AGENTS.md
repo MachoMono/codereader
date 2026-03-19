@@ -2,129 +2,114 @@
 
 ## Purpose
 
-CodeReader is an interactive quiz application that teaches users how to read code. It presents code snippets and asks multiple-choice questions about what the code does or outputs.
+CodeReader is an interactive quiz application that teaches users how to read code through multiple-choice questions.
 
 ## Design Philosophy
 
-- **Cyberpunk Aesthetic**: Inspired by 80s anime (Akira, Ghost in the Shell, Cyberpunk Edgerunners)
-- **No Emojis**: Use Lucide icons or ASCII art instead
-- **Hard Shadows**: Neubrutalism-style (4px offset, no blur)
-- **Neon Glows**: CSS box-shadow with color + blur radius
-- **Terminal Feel**: Monospace fonts, command-line aesthetics
+- **Modern & Vibrant**: Colorful gradients, glowing effects, floating orbs
+- **Glass Morphism**: Frosted glass cards with backdrop blur
+- **Gradient Accents**: Purple, pink, cyan color scheme
+- **NO Emojis**: Use Lucide icons or text symbols instead
+- **Clean Typography**: Space Grotesk for display, Outfit for body, JetBrains Mono for code
 
 ## Color Palette
 
 | Variable | Hex | Usage |
 |----------|-----|-------|
-| `--neo-cyan` | #00F5FF | Primary actions, links |
-| `--hot-magenta` | #FF2A6D | Alerts, errors |
-| `--electric-yellow` | #FCEE0A | Highlights, warnings |
-| `--neon-green` | #05FFA1 | Success, correct answers |
-| `--void-black` | #05050A | Background |
-| `--cyber-dark` | #0A0A14 | Cards, surfaces |
-| `--terminal` | #12121F | Code blocks |
-| `--chrome` | #1A1A2E | Borders |
+| `--primary` | #6366F1 | Primary buttons, accents |
+| `--secondary` | #EC4899 | Pink accents |
+| `--accent` | #06B6D4 | Cyan highlights |
+| `--accent-alt` | #8B5CF6 | Purple |
+| `--bg-base` | #0F0F1A | Deep background |
+| `--bg-card` | rgba(255,255,255,0.05) | Card backgrounds |
+| `--text-primary` | #FFFFFF | Main text |
+| `--text-secondary` | rgba(255,255,255,0.7) | Secondary text |
+
+## Gradients
+
+```css
+--gradient-text: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899, #F472B6);
+--gradient-bg: linear-gradient(135deg, #0F0F1A 0%, #1A1035 50%, #0F1A2A 100%);
+```
 
 ## Typography
 
 | Font | Role | Import |
 |------|------|--------|
-| Orbitron | Display, headers | Google Fonts |
-| Fira Code | Code blocks | Google Fonts |
-| Audiowide | UI labels | Google Fonts |
-| Exo 2 | Body text | Google Fonts |
-| Share Tech Mono | Terminal text | Google Fonts |
+| Space Grotesk | Display, headers | Google Fonts |
+| Outfit | Body text | Google Fonts |
+| JetBrains Mono | Code blocks | Google Fonts |
 
 ## Key Components
 
 ### CyberButton
-- Variants: `cyan`, `magenta`, `yellow`, `green`
+- Variants: `primary`, `secondary`, `accent`, `success`, `danger`, `ghost`, `outline`
 - Sizes: `small`, `medium`, `large`
-- Hover: Background fill + shadow grow
-- Active: Hard press (shadow disappears)
+- Gradient backgrounds with hover lift effect
+- Loading spinner state
 
 ### CyberCard
-- Hover: Lift + border glow
-- Accent bar: Gradient stripe at top
-- Clickable variant for selection
+- Glass morphism background
+- Gradient border on hover
+- Color variants for accent colors
+- Clickable for selection
 
 ### TerminalWindow
-- Window chrome (dots + title)
-- Line numbers
-- Syntax highlighting via `type` prop
+- Dark terminal aesthetic
+- Colored syntax highlighting
+- Window chrome with dots
 
 ### AnswerOption
-- Letter prefix in brackets
-- Correct: Green border + glow + pulse
-- Wrong: Magenta border + shake animation
+- Letter prefix in colored box
+- Correct: Green highlight + check icon
+- Wrong: Red highlight + shake animation
 
 ### ProgressBar
-- Segmented fill
-- Sweep animation on fill
+- Segmented progress
+- Gradient fill
+- Percentage display
 
 ## Quiz Data Format
 
-Questions are defined in `src/data/quizData.js`:
+Questions in `src/data/quizData.js`:
 
 ```javascript
 {
-  id: string,           // Unique identifier
-  question: string,     // Question text
-  code: [               // Code lines
-    { number, content, type }
-  ],
-  options: [             // Answer choices
-    { letter, text }
-  ],
-  correct: string,       // 'A', 'B', 'C', or 'D'
-  explanation: string   // Shown after answering
+  id: string,
+  question: string,
+  code: [{ number, content, type }],
+  options: [{ letter, text }],
+  correct: 'A' | 'B' | 'C' | 'D',
+  explanation: string
 }
 ```
 
-## Adding New Languages
-
-1. Add language entry in `languages` object
-2. Add difficulty levels with `questions` array
-3. Each language can have: `beginner`, `intermediate`, `advanced`
-
-## Adding New Questions
-
-1. Find the language/difficulty in `quizData.js`
-2. Add new question object to the `questions` array
-3. Ensure unique `id` following pattern: `{lang}-{diff}-{num}`
+Code types: `default`, `keyword`, `string`, `function`, `comment`, `number`, `operator`
 
 ## Styling Guidelines
 
-- **NO Emojis**: Use Lucide icons or ASCII
-- **Hard Shadows**: `4px 4px 0 0 {color}`
-- **Glow Effects**: `0 0 10px {color}, 0 0 30px rgba({color}, 0.4)`
-- **Scanlines**: Use `.scanlines::before` pseudo-element
-- **Particles**: Floating animated divs with glow
+- **NO Emojis**: Use Lucide icons
+- **Glass Effects**: `backdrop-filter: blur(20px)`
+- **Gradient Borders**: Use `::before` with mask-composite
+- **Floating Orbs**: Blurred gradient circles for backgrounds
+- **Soft Shadows**: `box-shadow: 0 20px 40px rgba(0,0,0,0.3)`
 
 ## Animation Classes
 
-| Class | Purpose |
-|-------|---------|
-| `.scanlines::before` | CRT overlay effect |
-| `@keyframes glitch` | Text glitch |
-| `@keyframes shake` | Wrong answer shake |
-| `@keyframes fade-in-up` | Element entrance |
-| `@keyframes particle-float` | Background particles |
-
-## Progress Tracking
-
-Uses LocalStorage key `codereader_progress`. Hook `useProgress.js` manages:
-- Completed questions per language/difficulty
-- Overall stats (accuracy, streak)
-- Reset capability
+| Animation | Purpose |
+|-----------|---------|
+| `fade-in-up` | Element entrance |
+| `float` | Floating elements |
+| `gradient-shift` | Animated gradients |
+| `shimmer` | Loading effects |
 
 ## File Locations
 
 | File | Purpose |
 |------|---------|
-| `src/index.css` | Global styles, CSS variables, animations |
-| `src/App.jsx` | Main app, view routing |
-| `src/pages/Home.jsx` | Language/difficulty selection |
-| `src/pages/Quiz.jsx` | Quiz flow, feedback |
+| `src/index.css` | Global styles, variables |
+| `src/App.jsx` | View routing |
+| `src/pages/Home.jsx` | Language/difficulty select |
+| `src/pages/Quiz.jsx` | Quiz flow |
 | `src/data/quizData.js` | All quiz content |
-| `src/hooks/useProgress.js` | Progress state management |
+| `src/hooks/useProgress.js` | LocalStorage progress |

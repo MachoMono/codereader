@@ -18,7 +18,7 @@ function App() {
   };
 
   return (
-    <div className="app scanlines">
+    <div className="app">
       {view === 'home' && (
         <Home onStartQuiz={handleStartQuiz} />
       )}

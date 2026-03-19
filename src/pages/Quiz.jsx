@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, Check, X } from 'lucide-react';
+import { ChevronLeft, Check, X, ArrowRight, RotateCcw, Home } from 'lucide-react';
 import CyberButton from '../components/CyberButton';
 import TerminalWindow, { CodeLine } from '../components/TerminalWindow';
 import AnswerOption from '../components/AnswerOption';
@@ -59,63 +59,51 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
   if (questions.length === 0) {
     return (
       <div className="quiz quiz--empty">
-        <p>No questions available for this combination.</p>
-        <CyberButton onClick={onBack}>Return to Home</CyberButton>
+        <div className="empty-state">
+          <h2>No questions available</h2>
+          <CyberButton onClick={onBack}>Return Home</CyberButton>
+        </div>
       </div>
     );
   }
 
   if (quizComplete) {
+    const answeredCorrectly = questions.filter((_, i) => {
+      return true;
+    }).length;
+    
     return (
       <div className="quiz quiz--complete">
         <div className="complete-screen">
-          <pre className="complete-screen__ascii">
-{`
-╔═══════════════════════════════════════╗
-║                                       ║
-║        SEQUENCE_COMPLETE              ║
-║                                       ║
-║        DATA_PROCESSED_SUCCESSFULLY    ║
-║                                       ║
-╚═══════════════════════════════════════╝
-`}
-          </pre>
+          <div className="complete-screen__icon">
+            <Check size={48} />
+          </div>
+          <h1 className="complete-screen__title">
+            <span className="gradient-text">Quiz Complete</span>
+          </h1>
+          <p className="complete-screen__subtitle">
+            You have mastered this challenge
+          </p>
           
           <div className="complete-screen__stats">
             <div className="complete-stat">
-              <span className="complete-stat__label">QUESTIONS_COMPLETED</span>
               <span className="complete-stat__value">{questions.length}</span>
+              <span className="complete-stat__label">Questions</span>
             </div>
             <div className="complete-stat">
-              <span className="complete-stat__label">ACCURACY</span>
-              <span className="complete-stat__value complete-stat__value--cyan">
-                {Math.round((questions.filter((_, i) => i < currentIndex).filter((q, i) => true).length / Math.max(currentIndex, 1)) * 100)}%
-              </span>
+              <span className="complete-stat__value gradient-text">100%</span>
+              <span className="complete-stat__label">Complete</span>
             </div>
           </div>
           
           <div className="complete-screen__actions">
-            <CyberButton variant="cyan" icon="arrow" onClick={handleRestart}>
-              RETRY_SEQUENCE
+            <CyberButton variant="secondary" icon="rotate" onClick={handleRestart}>
+              Try Again
             </CyberButton>
-            <CyberButton variant="magenta" icon="arrow" onClick={onBack}>
-              RETURN_BASE
+            <CyberButton variant="primary" icon="home" onClick={onBack}>
+              Back Home
             </CyberButton>
           </div>
-        </div>
-        
-        <div className="quiz__particles">
-          {Array.from({ length: 30 }, (_, i) => (
-            <div 
-              key={i} 
-              className="particle"
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                background: ['var(--neo-cyan)', 'var(--neon-green)', 'var(--electric-yellow)'][i % 3]
-              }}
-            />
-          ))}
         </div>
       </div>
     );
@@ -127,38 +115,38 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
       <header className="quiz__header">
         <button className="quiz__back" onClick={onBack}>
           <ChevronLeft size={20} />
-          <span>EXIT</span>
+          <span>Exit</span>
         </button>
+        
+        <div className="quiz__info">
+          <span className="quiz__language">{language.name}</span>
+          <span className="quiz__difficulty">{language.difficulty[difficultyId].name}</span>
+        </div>
         
         <div className="quiz__progress">
           <ProgressBar 
             current={currentIndex + 1} 
             total={totalInQuiz}
-            variant={language.color}
+            variant="primary"
             showLabel={false}
           />
           <span className="quiz__counter">
-            Q_{String(currentIndex + 1).padStart(2, '0')}/{totalInQuiz}
+            {currentIndex + 1} / {totalInQuiz}
           </span>
-        </div>
-        
-        <div className="quiz__language">
-          <span className="quiz__language-name">{language.name}</span>
-          <span className="quiz__difficulty">{language.difficulty[difficultyId].name}</span>
         </div>
       </header>
 
-      {/* Question Area */}
+      {/* Main Content */}
       <main className="quiz__main">
+        {/* Question */}
         <div className="quiz__question">
           <h2 className="quiz__question-text">
-            <span className="quiz__question-label">&gt;_</span>
             {currentQuestion.question}
           </h2>
         </div>
 
         {/* Code Block */}
-        <TerminalWindow title={`question_${String(currentIndex + 1).padStart(2, '0')}.${languageId}`}>
+        <TerminalWindow title={`${languageId}_quiz_${currentIndex + 1}`}>
           {currentQuestion.code.map((line, idx) => (
             <CodeLine 
               key={idx} 
@@ -167,18 +155,6 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
               type={line.type}
             />
           ))}
-          {showFeedback && (
-            <div className="code-line code-line--prompt">
-              <span className="code-line__number"></span>
-              <span className="code-line__content">
-                {selectedAnswer === currentQuestion.correct ? (
-                  <span className="text-green">&gt; CORRECT</span>
-                ) : (
-                  <span className="text-magenta">&gt; INCORRECT</span>
-                )}
-              </span>
-            </div>
-          )}
         </TerminalWindow>
 
         {/* Answer Options */}
@@ -192,6 +168,7 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
               correct={showFeedback && option.letter === currentQuestion.correct}
               wrong={showFeedback && selectedAnswer === option.letter && option.letter !== currentQuestion.correct}
               disabled={showFeedback}
+              showResult={showFeedback}
               onClick={() => handleSelectAnswer(option.letter)}
             />
           ))}
@@ -204,12 +181,12 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
               {selectedAnswer === currentQuestion.correct ? (
                 <>
                   <Check size={20} />
-                  <span>CORRECT</span>
+                  <span>Correct</span>
                 </>
               ) : (
                 <>
                   <X size={20} />
-                  <span>INCORRECT</span>
+                  <span>Incorrect</span>
                 </>
               )}
             </div>
@@ -217,30 +194,16 @@ export default function Quiz({ languageId, difficultyId, onBack }) {
               {currentQuestion.explanation}
             </p>
             <CyberButton 
-              variant={selectedAnswer === currentQuestion.correct ? 'green' : 'cyan'}
-              size="small"
+              variant={selectedAnswer === currentQuestion.correct ? 'success' : 'primary'}
+              size="medium"
               icon="arrow"
               onClick={handleNext}
             >
-              {currentIndex + 1 >= questions.length ? 'COMPLETE' : 'NEXT_QUESTION'}
+              {currentIndex + 1 >= questions.length ? 'Finish Quiz' : 'Next Question'}
             </CyberButton>
           </div>
         )}
       </main>
-
-      {/* Particles */}
-      <div className="quiz__particles">
-        {Array.from({ length: 15 }, (_, i) => (
-          <div 
-            key={i} 
-            className="particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 15}s`
-            }}
-          />
-        ))}
-      </div>
     </div>
   );
 }

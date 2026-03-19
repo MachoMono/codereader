@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Code, Zap, Trophy } from 'lucide-react';
+import { Code, Zap, Trophy, Play, ArrowRight, Sparkles } from 'lucide-react';
 import CyberButton from '../components/CyberButton';
 import CyberCard from '../components/CyberCard';
 import ProgressBar from '../components/ProgressBar';
@@ -37,44 +37,51 @@ export default function Home({ onStartQuiz }) {
 
   return (
     <div className="home">
-      {/* ASCII Art Header */}
-      <header className="home__header">
-        <pre className="home__ascii">
-{`
-██╗   ██╗██╗ ██████╗████████╗ ██████╗ ██████╗ ██╗   ██╗
-██║   ██║██║██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗╚██╗ ██╔╝
-██║   ██║██║██║        ██║   ██║   ██║██████╔╝ ╚████╔╝ 
-╚██╗ ██╔╝██║██║        ██║   ██║   ██║██╔══██╗  ╚██╔╝  
- ╚████╔╝ ██║╚██████╗   ██║   ╚██████╔╝██║  ██║   ██║   
-  ╚═══╝  ╚═╝ ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝   
-`}
-        </pre>
-        <p className="home__tagline">
-          <span className="home__tagline-text">DECODE_THE_MATRIX_OF_CODE</span>
-        </p>
+      {/* Hero Section */}
+      <header className="home__hero">
+        <div className="home__hero-bg">
+          <div className="hero-orb hero-orb--1"></div>
+          <div className="hero-orb hero-orb--2"></div>
+          <div className="hero-orb hero-orb--3"></div>
+        </div>
+        <div className="home__hero-content">
+          <div className="home__badge">
+            <Sparkles size={14} />
+            <span>Learn to Read Code</span>
+          </div>
+          <h1 className="home__title">
+            <span className="gradient-text">CodeReader</span>
+          </h1>
+          <p className="home__subtitle">
+            Master code comprehension through interactive quizzes
+          </p>
+        </div>
       </header>
 
       {/* Language Selection */}
       <section className="home__section">
-        <h2 className="home__section-title">
-          <span className="home__section-icon"><Code size={20} /></span>
-          SELECT_PROTOCOL
-        </h2>
-        <div className="home__languages">
+        <div className="section-header">
+          <div className="section-icon">
+            <Code size={20} />
+          </div>
+          <h2 className="section-title">Choose Your Language</h2>
+        </div>
+        <div className="language-grid">
           {Object.entries(languages).map(([id, lang]) => (
             <CyberCard
               key={id}
-              variant={selectedLanguage === id ? 'highlighted' : 'default'}
-              glowColor={lang.color}
+              variant="gradient-border"
+              color={lang.color}
               header={lang.name}
               icon="code"
               onClick={() => handleLanguageSelect(id)}
+              selected={selectedLanguage === id}
               className="language-card"
             >
               <div className="language-card__preview">
                 <code>{id === 'python' ? 'print("hello")' : id === 'javascript' ? 'console.log(x)' : '<Component />'}</code>
               </div>
-              <div className="language-card__stats">
+              <div className="language-card__meta">
                 <span>{lang.difficulty.beginner.questions.length + lang.difficulty.intermediate.questions.length} questions</span>
               </div>
             </CyberCard>
@@ -85,11 +92,13 @@ export default function Home({ onStartQuiz }) {
       {/* Difficulty Selection */}
       {selectedLanguage && (
         <section className="home__section home__section--animate">
-          <h2 className="home__section-title">
-            <span className="home__section-icon"><Zap size={20} /></span>
-            DIFFICULTY_LEVEL
-          </h2>
-          <div className="home__difficulties">
+          <div className="section-header">
+            <div className="section-icon">
+              <Zap size={20} />
+            </div>
+            <h2 className="section-title">Select Difficulty</h2>
+          </div>
+          <div className="difficulty-grid">
             {difficulties.map((diff) => {
               const lang = languages[selectedLanguage];
               const questions = lang?.difficulty[diff.id]?.questions || [];
@@ -98,14 +107,26 @@ export default function Home({ onStartQuiz }) {
               return (
                 <button
                   key={diff.id}
-                  className={`difficulty-btn difficulty-btn--${diff.color} ${selectedDifficulty === diff.id ? 'difficulty-btn--selected' : ''}`}
+                  className={`difficulty-card difficulty-card--${diff.color} ${selectedDifficulty === diff.id ? 'difficulty-card--selected' : ''}`}
                   onClick={() => handleDifficultySelect(diff.id)}
                 >
-                  <span className="difficulty-btn__name">{diff.name.toUpperCase()}</span>
-                  <span className="difficulty-btn__count">{questions.length} questions</span>
-                  {completed > 0 && (
-                    <span className="difficulty-btn__progress">{completed}/{questions.length}</span>
-                  )}
+                  <div className="difficulty-card__icon">
+                    {diff.id === 'beginner' ? '//' : '***'}
+                  </div>
+                  <div className="difficulty-card__content">
+                    <span className="difficulty-card__name">{diff.name}</span>
+                    <span className="difficulty-card__count">{questions.length} questions</span>
+                    {completed > 0 && (
+                      <div className="difficulty-card__progress">
+                        <ProgressBar 
+                          current={completed} 
+                          total={questions.length}
+                          variant={diff.color}
+                          showLabel={false}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </button>
               );
             })}
@@ -113,30 +134,41 @@ export default function Home({ onStartQuiz }) {
         </section>
       )}
 
-      {/* Progress Stats */}
+      {/* Stats Section */}
       <section className="home__section">
-        <h2 className="home__section-title">
-          <span className="home__section-icon"><Trophy size={20} /></span>
-          SYSTEM_STATUS
-        </h2>
-        <div className="home__stats">
+        <div className="section-header">
+          <div className="section-icon">
+            <Trophy size={20} />
+          </div>
+          <h2 className="section-title">Your Progress</h2>
+        </div>
+        <div className="stats-grid">
           <div className="stat-card">
-            <span className="stat-card__label">QUIZZES_COMPLETED</span>
-            <span className="stat-card__value">{progress.stats.totalQuizzes}</span>
+            <div className="stat-card__icon">
+              <Code size={24} />
+            </div>
+            <div className="stat-card__content">
+              <span className="stat-card__value">{progress.stats.totalQuizzes}</span>
+              <span className="stat-card__label">Quizzes</span>
+            </div>
           </div>
           <div className="stat-card">
-            <span className="stat-card__label">ACCURACY</span>
-            <span className="stat-card__value stat-card__value--cyan">{getAccuracy()}%</span>
+            <div className="stat-card__icon stat-card__icon--accent">
+              <Zap size={24} />
+            </div>
+            <div className="stat-card__content">
+              <span className="stat-card__value gradient-text">{getAccuracy()}%</span>
+              <span className="stat-card__label">Accuracy</span>
+            </div>
           </div>
           <div className="stat-card">
-            <span className="stat-card__label">STREAK</span>
-            <span className="stat-card__value stat-card__value--yellow">
-              <Zap size={16} /> {progress.stats.streak}
-            </span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-card__label">QUESTIONS_ANSWERED</span>
-            <span className="stat-card__value">{progress.stats.totalAnswered}</span>
+            <div className="stat-card__icon stat-card__icon--secondary">
+              <Trophy size={24} />
+            </div>
+            <div className="stat-card__content">
+              <span className="stat-card__value">{progress.stats.totalAnswered}</span>
+              <span className="stat-card__label">Answered</span>
+            </div>
           </div>
         </div>
       </section>
@@ -147,34 +179,19 @@ export default function Home({ onStartQuiz }) {
           <ProgressBar 
             current={completedCount} 
             total={totalQuestions}
-            variant="cyan"
-            label={`PROGRESS: ${completedCount}/${totalQuestions}`}
+            variant="primary"
+            label={`${completedCount} of ${totalQuestions} completed`}
           />
           <CyberButton 
-            variant="cyan" 
+            variant="primary" 
             size="large"
-            icon="arrow"
+            icon="play"
             onClick={handleStartQuiz}
           >
-            INITIATE_QUIZ_SEQUENCE
+            Start Quiz
           </CyberButton>
         </div>
       )}
-
-      {/* Floating Particles */}
-      <div className="home__particles">
-        {Array.from({ length: 20 }, (_, i) => (
-          <div 
-            key={i} 
-            className="particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 15}s`,
-              animationDuration: `${15 + Math.random() * 10}s`
-            }}
-          />
-        ))}
-      </div>
     </div>
   );
 }

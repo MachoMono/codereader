@@ -1,3 +1,4 @@
+import { Check, X } from 'lucide-react';
 import './AnswerOption.css';
 
 export default function AnswerOption({ 
@@ -7,11 +8,12 @@ export default function AnswerOption({
   correct,
   wrong,
   disabled,
-  onClick 
+  onClick,
+  showResult = false
 }) {
   const getStateClass = () => {
-    if (correct) return 'answer-option--correct';
-    if (wrong) return 'answer-option--wrong';
+    if (correct && showResult) return 'answer-option--correct';
+    if (wrong && showResult) return 'answer-option--wrong';
     if (selected) return 'answer-option--selected';
     return '';
   };
@@ -20,10 +22,20 @@ export default function AnswerOption({
     <button 
       className={`answer-option ${getStateClass()}`}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || showResult}
     >
-      <span className="answer-option__letter">[{letter}]</span>
+      <span className="answer-option__letter">{letter}</span>
       <span className="answer-option__text">{text}</span>
+      {showResult && correct && (
+        <span className="answer-option__icon answer-option__icon--correct">
+          <Check size={18} />
+        </span>
+      )}
+      {showResult && wrong && (
+        <span className="answer-option__icon answer-option__icon--wrong">
+          <X size={18} />
+        </span>
+      )}
     </button>
   );
 }

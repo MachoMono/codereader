@@ -1,85 +1,119 @@
 .cyber-card {
-  background: var(--cyber-dark);
-  border: 2px solid var(--chrome);
-  box-shadow: var(--shadow-chrome);
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.cyber-card__accent {
+.cyber-card__glow {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--neo-cyan), var(--hot-magenta), var(--electric-yellow));
-  opacity: 0.8;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-border);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .cyber-card__header {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  color: var(--neo-cyan);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: var(--space-lg) var(--space-lg) var(--space-sm);
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  border-bottom: 1px solid var(--chrome);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
 .cyber-card__body {
   padding: var(--space-lg);
+  position: relative;
+  z-index: 1;
 }
 
-/* Glow color variants */
-.cyber-card--glow-cyan:hover {
-  border-color: var(--neo-cyan);
-  box-shadow: var(--glow-cyan), var(--shadow-cyber);
+/* Color variants */
+.cyber-card--primary .cyber-card__glow {
+  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
 }
 
-.cyber-card--glow-magenta:hover {
-  border-color: var(--hot-magenta);
-  box-shadow: var(--glow-magenta), var(--shadow-hot);
+.cyber-card--secondary .cyber-card__glow {
+  background: linear-gradient(90deg, var(--gradient-3), var(--gradient-4));
 }
 
-.cyber-card--glow-yellow:hover {
-  border-color: var(--electric-yellow);
-  box-shadow: var(--glow-yellow), var(--shadow-yellow);
+.cyber-card--accent .cyber-card__glow {
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
 }
 
-.cyber-card--glow-green:hover {
-  border-color: var(--neon-green);
-  box-shadow: var(--glow-green), 4px 4px 0 0 var(--neon-green);
+.cyber-card--cyan .cyber-card__glow {
+  background: linear-gradient(90deg, #06B6D4, #22D3EE);
 }
 
-/* Clickable cards */
-.cyber-card--clickable {
-  cursor: pointer;
+.cyber-card--purple .cyber-card__glow {
+  background: linear-gradient(90deg, #8B5CF6, #A78BFA);
 }
 
+/* Hover state */
 .cyber-card--clickable:hover {
-  transform: translate(-4px, -4px);
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.cyber-card--clickable:active {
-  transform: translate(2px, 2px);
-  box-shadow: none;
+.cyber-card--clickable:hover .cyber-card__glow {
+  opacity: 1;
 }
 
-/* Default hover */
-.cyber-card:hover {
-  transform: translate(-4px, -4px);
+/* Selected state */
+.cyber-card--selected {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
 }
 
-/* Variants */
+.cyber-card--selected .cyber-card__glow {
+  opacity: 1;
+}
+
+/* Variant: Highlighted */
 .cyber-card--highlighted {
-  border-color: var(--neo-cyan);
-  box-shadow: var(--shadow-cyber);
+  border-color: var(--primary);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
 }
 
-.cyber-card--highlighted:hover {
-  box-shadow: var(--glow-cyan), 6px 6px 0 0 var(--neo-cyan);
+.cyber-card--highlighted .cyber-card__glow {
+  opacity: 1;
+}
+
+/* Variant: Glass */
+.cyber-card--glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(30px);
+}
+
+/* Variant: Gradient Border */
+.cyber-card--gradient-border {
+  background: var(--gradient-bg);
+  border: none;
+  position: relative;
+}
+
+.cyber-card--gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: var(--radius-lg);
+  background: var(--gradient-border);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 }

@@ -129,13 +129,19 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 200ms ease;
   text-align: left;
+  width: 100%;
 }
 
 .difficulty-card:hover {
   border-color: var(--accent-magenta);
   background: var(--bg-terminal);
+}
+
+.difficulty-card:focus-visible {
+  outline: 2px solid var(--accent-magenta);
+  outline-offset: 2px;
 }
 
 .difficulty-card--selected {

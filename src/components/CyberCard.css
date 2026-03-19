@@ -3,7 +3,7 @@
   border: 1px solid var(--border);
   padding: var(--space-lg);
   position: relative;
-  transition: all 0.15s ease;
+  transition: all 200ms ease;
 }
 
 /* Clickable card */
@@ -19,6 +19,11 @@
 .cyber-card--clickable:hover .card-title {
   text-shadow: var(--glow-magenta);
   color: var(--accent-magenta);
+}
+
+.cyber-card--clickable:focus-visible {
+  outline: 2px solid var(--accent-magenta);
+  outline-offset: 2px;
 }
 
 /* Selected card */

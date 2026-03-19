@@ -46,12 +46,17 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 200ms ease;
 }
 
 .quiz__back:hover {
   border-color: var(--error);
   color: var(--error);
+}
+
+.quiz__back:focus-visible {
+  outline: 2px solid var(--accent-magenta);
+  outline-offset: 2px;
 }
 
 .quiz__info {

@@ -12,7 +12,7 @@
   color: var(--text-primary);
   text-align: left;
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: all 200ms ease;
 }
 
 .answer-option:first-child {
@@ -23,7 +23,21 @@
   border-bottom: 1px solid var(--border);
 }
 
-/* Hover: Invert */
+.answer-option__letter {
+  font-family: var(--font-mono);
+  font-weight: bold;
+  font-size: 0.85rem;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  transition: all 200ms ease;
+  flex-shrink: 0;
+}
+
 .answer-option:hover:not(:disabled) {
   background: var(--text-primary);
   color: var(--bg-void);
@@ -33,6 +47,11 @@
   color: var(--bg-void);
   background: var(--accent-magenta);
   border-color: var(--accent-magenta);
+}
+
+.answer-option:focus-visible {
+  outline: 2px solid var(--accent-magenta);
+  outline-offset: -2px;
 }
 
 /* Selected */
